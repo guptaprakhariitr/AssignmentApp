@@ -59,7 +59,7 @@ public class StudentListModel extends Fragment {
                 if (dataSnapshot != null) {
                     studentsList.clear();
                     for (final DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        if(snapshot.child("name").getValue()!=null){
+                         if(snapshot.hasChild("name") && snapshot.hasChild("erno")){
                         studentsList.add(snapshot.child("name").getValue().toString());
                         studentsEr.add(snapshot.child("erno").getValue().toString());}
                     }
