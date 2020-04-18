@@ -13,6 +13,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import org.jetbrains.annotations.NotNull;
+
 public class StudentListViewModel extends ViewModel {
     private static final DatabaseReference Students =
             FirebaseDatabase.getInstance().getReference("/Students");
@@ -59,7 +61,7 @@ public static void setData(String name,String er) {
 
     private class MyValueEventListener implements ValueEventListener {
         @Override
-        public void onDataChange(DataSnapshot dataSnapshot) {
+        public void onDataChange(@NotNull DataSnapshot dataSnapshot) {
             setValue(dataSnapshot);
         }
 

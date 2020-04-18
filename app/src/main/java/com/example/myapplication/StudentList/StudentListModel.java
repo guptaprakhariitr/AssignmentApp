@@ -1,12 +1,15 @@
 package com.example.myapplication.StudentList;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,16 +18,21 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.NavAction;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class StudentListModel extends Fragment {
     private ArrayAdapter<String> listAdapter ;
+    private TextView text;
     ArrayList<String> studentsList = new ArrayList<String>();
     ArrayList<String> studentsEr = new ArrayList<String>();
     private ListView mainListView ;
@@ -40,7 +48,6 @@ public class StudentListModel extends Fragment {
         liveData = studentListViewModel.getDataSnapshotLiveData();
         return root;
     }
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -52,19 +59,33 @@ public class StudentListModel extends Fragment {
                 if (dataSnapshot != null) {
                     studentsList.clear();
                     for (final DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        if(snapshot.child("name").getValue()!=null){
                         studentsList.add(snapshot.child("name").getValue().toString());
+                        studentsEr.add(snapshot.child("erno").getValue().toString());}
                     }
                     listAdapter = new ArrayAdapter<String>(getContext(),R.layout.list_element, studentsList);
                     mainListView.setAdapter( listAdapter );
                 }
             }
         });
+
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view).navigate(R.id.new_student);
             }
         });
+        text=getView().findViewById(R.id.name);
+        mainListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.i(("Tag"),listAdapter.getItem(position));
+                String namesend=studentsList.get(position);
+                String ernosend=studentsEr.get(position);
+                Navigation.findNavController(view).navigate(StudentListModelDirections.detailStudentAction(namesend,ernosend));
+            }
+        }
+        );
     }
 
 }

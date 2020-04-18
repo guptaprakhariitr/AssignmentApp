@@ -42,7 +42,14 @@ public class NewStudent extends Fragment {
             public void onClick(View v) {
                 final String ernoing=erno.getText().toString();
                 final String naming=name.getText().toString();
-                StudentListViewModel.setData(naming,ernoing);
+                Runnable runnable=new Runnable() {
+                    @Override
+                    public void run() {
+
+                        StudentListViewModel.setData(naming,ernoing);
+                    }
+                };
+                runnable.run();
                 name.setText("");
                 erno.setText("");
                 Toast.makeText(getContext(),"Done",Toast.LENGTH_SHORT).show();

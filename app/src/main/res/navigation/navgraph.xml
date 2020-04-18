@@ -11,6 +11,14 @@
         android:name="com.example.myapplication.StudentList.DetailStudent"
         android:label="Blank"
         tools:layout="@layout/detail_student">
+        <argument
+            android:name="name"
+            app:argType="string"
+            />
+        <argument
+            android:name="erno"
+            app:argType="string"
+            />
     </fragment>
     <fragment
         android:id="@+id/new_student"
@@ -21,7 +29,7 @@
         android:id="@+id/fragment_first"
         android:name="com.example.myapplication.StudentList.StudentListModel"
         android:label="Blank"
-        tools:layout="@layout/new_student">
+        tools:layout="@layout/fragment_first">
     <action
         android:id="@+id/new_studentaction"
         app:destination="@+id/new_student"
@@ -29,5 +37,7 @@
     <action
         android:id="@+id/detailStudentAction"
         app:destination="@+id/detailStudent"
-        /> </fragment>
+        />
+
+    </fragment>
 </navigation>
