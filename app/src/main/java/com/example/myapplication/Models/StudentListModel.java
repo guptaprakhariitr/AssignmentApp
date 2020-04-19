@@ -1,9 +1,8 @@
-package com.example.myapplication.StudentList;
+package com.example.myapplication.Models;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -16,19 +15,16 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.navigation.NavAction;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.ViewModels.StudentListViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class StudentListModel extends Fragment {
     private ArrayAdapter<String> listAdapter ;
@@ -53,13 +49,13 @@ public class StudentListModel extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mainListView = (ListView) getView().findViewById(R.id.list);
         add=getView().findViewById(R.id.add);
-        liveData.observe(getActivity(), new Observer<DataSnapshot>() {
+        liveData.observe(Objects.requireNonNull(getActivity()), new Observer<DataSnapshot>() {
             @Override
             public void onChanged(@Nullable DataSnapshot dataSnapshot){
                 if (dataSnapshot != null) {
                     studentsList.clear();
                     for (final DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        if(snapshot.child("name").getValue()!=null){
+                        if(snapshot.hasChild("name") && snapshot.hasChild("erno")){
                         studentsList.add(snapshot.child("name").getValue().toString());
                         studentsEr.add(snapshot.child("erno").getValue().toString());}
                     }
@@ -73,6 +69,7 @@ public class StudentListModel extends Fragment {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view).navigate(R.id.new_student);
+
             }
         });
         text=getView().findViewById(R.id.name);

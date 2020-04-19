@@ -1,4 +1,4 @@
-package com.example.myapplication.StudentList;
+package com.example.myapplication.Models;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -12,8 +12,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.R;
-
-import org.w3c.dom.Text;
 
 public class DetailStudent extends Fragment {
     TextView namee,ernoe;
