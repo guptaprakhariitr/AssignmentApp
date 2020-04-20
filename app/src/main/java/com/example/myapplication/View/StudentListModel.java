@@ -1,4 +1,4 @@
-package com.example.myapplication.Models;
+package com.example.myapplication.View;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -54,11 +54,16 @@ public class StudentListModel extends Fragment {
             public void onChanged(@Nullable DataSnapshot dataSnapshot){
                 if (dataSnapshot != null) {
                     studentsList.clear();
+                    studentsEr.clear();
                     for (final DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         if(snapshot.hasChild("name") && snapshot.hasChild("erno")){
                         studentsList.add(snapshot.child("name").getValue().toString());
-                        studentsEr.add(snapshot.child("erno").getValue().toString());}
+                        Log.i("tag",snapshot.child("name").getValue().toString());
+                        studentsEr.add(snapshot.child("erno").getValue().toString());
+                            Log.i("tag",snapshot.child("erno").getValue().toString());
+                        }
                     }
+
                     listAdapter = new ArrayAdapter<String>(getContext(),R.layout.list_element, studentsList);
                     mainListView.setAdapter( listAdapter );
                 }
@@ -76,9 +81,11 @@ public class StudentListModel extends Fragment {
         mainListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.i(("Tag"),listAdapter.getItem(position));
+                Log.i(("Tag"),listAdapter.getItem(position)+position);
                 String namesend=studentsList.get(position);
+                Log.i("tag",namesend);
                 String ernosend=studentsEr.get(position);
+                Log.i("tag",ernosend);
                 Navigation.findNavController(view).navigate(StudentListModelDirections.detailStudentAction(namesend,ernosend));
             }
         }

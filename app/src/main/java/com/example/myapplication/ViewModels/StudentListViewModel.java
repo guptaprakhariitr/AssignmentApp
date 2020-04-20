@@ -25,9 +25,11 @@ public class StudentListViewModel extends ViewModel {
     public LiveData<DataSnapshot> getDataSnapshotLiveData() {
         return liveData;
     }
+    public static void setTorefreshData(String refresh) {
+        String uid=Students.push().getKey();
+        Students.child("refresh").child("refresh").setValue(refresh);
+    }
 }
-
-
    class FirebaseQueryLiveData extends LiveData<DataSnapshot> {
     private static final String LOG_TAG = "FirebaseQueryLiveData";
     private final Query query;

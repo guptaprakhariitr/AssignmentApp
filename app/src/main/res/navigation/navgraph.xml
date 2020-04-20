@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/detailStudent"
-        android:name="com.example.myapplication.Models.DetailStudent"
+        android:name="com.example.myapplication.View.DetailStudent"
         android:label="Blank"
         tools:layout="@layout/detail_student">
         <argument
@@ -22,12 +22,12 @@
     </fragment>
     <fragment
         android:id="@+id/new_student"
-        android:name="com.example.myapplication.Models.NewStudent"
+        android:name="com.example.myapplication.View.NewStudent"
         android:label="Blank"
         tools:layout="@layout/new_student" />
     <fragment
         android:id="@+id/fragment_first"
-        android:name="com.example.myapplication.Models.StudentListModel"
+        android:name="com.example.myapplication.View.StudentListModel"
         android:label="Blank"
         tools:layout="@layout/fragment_first">
     <action
