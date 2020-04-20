@@ -54,6 +54,7 @@ public class StudentListModel extends Fragment {
             public void onChanged(@Nullable DataSnapshot dataSnapshot){
                 if (dataSnapshot != null) {
                     studentsList.clear();
+                    studentsEr.clear();
                     for (final DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         if(snapshot.hasChild("name") && snapshot.hasChild("erno")){
                         studentsList.add(snapshot.child("name").getValue().toString());
