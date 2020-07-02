@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navgraph"
+    app:startDestination="@id/fragment_first">
+
+    <fragment
+        android:id="@+id/detailStudent"
+        android:name="com.example.myapplication.View.DetailStudent"
+        android:label="Blank"
+        tools:layout="@layout/detail_student">
+        <argument
+            android:name="name"
+            app:argType="string"
+            />
+        <argument
+            android:name="erno"
+            app:argType="string"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/new_student"
+        android:name="com.example.myapplication.View.NewStudent"
+        android:label="Blank"
+        tools:layout="@layout/new_student" />
+    <fragment
+        android:id="@+id/fragment_first"
+        android:name="com.example.myapplication.View.StudentListModel"
+        android:label="Blank"
+        tools:layout="@layout/fragment_first">
+    <action
+        android:id="@+id/new_studentaction"
+        app:destination="@+id/new_student"
+        />
+    <action
+        android:id="@+id/detailStudentAction"
+        app:destination="@+id/detailStudent"
+        />
+
+    </fragment>
+</navigation>
